@@ -16,6 +16,7 @@ const firaGo = localFont({
 export const metadata: Metadata = {
   title: "სასტუმრო აგავა — რეცეფცია",
   description: "სტუმრების აღრიცხვის სისტემა",
+  icons: { icon: "/logo.png" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

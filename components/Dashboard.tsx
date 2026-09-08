@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import type { Guest, NewGuest } from "@/lib/types";
 import GuestRow from "@/components/GuestRow";
@@ -89,15 +90,20 @@ export default function Dashboard() {
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col px-4 pb-24 pt-4 sm:px-6">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-lg font-semibold">სასტუმრო აგავა</h1>
+        <div className="flex items-center gap-2">
+          <Image src="/logo.png" alt="" width={40} height={40} className="h-9 w-9 object-contain" />
+          <h1 className="text-lg font-semibold">სასტუმრო აგავა</h1>
+        </div>
         <LogoutButton />
       </div>
 
-      <div className="mb-4 flex rounded-xl bg-slate-100 p-1">
+      <div className="mb-4 flex rounded-xl bg-[var(--surface-3)] p-1">
         <button
           onClick={() => setTab("current")}
           className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
-            tab === "current" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500"
+            tab === "current"
+              ? "bg-[var(--surface)] text-[var(--ink)] shadow-sm ring-1 ring-[var(--gold-300)]"
+              : "text-[var(--ink-muted)]"
           }`}
         >
           ამჟამად სასტუმროში
@@ -105,7 +111,9 @@ export default function Dashboard() {
         <button
           onClick={() => setTab("history")}
           className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
-            tab === "history" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500"
+            tab === "history"
+              ? "bg-[var(--surface)] text-[var(--ink)] shadow-sm ring-1 ring-[var(--gold-300)]"
+              : "text-[var(--ink-muted)]"
           }`}
         >
           ისტორია
@@ -116,14 +124,18 @@ export default function Dashboard() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="ძებნა სახელით ან ტელეფონით"
-        className="mb-4 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-base outline-none focus:border-slate-900"
+        className="mb-4 w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-base outline-none focus:border-[var(--gold-700)]"
       />
 
       <div className="flex flex-col gap-3">
-        {loading && <p className="text-center text-sm text-slate-400">იტვირთება...</p>}
+        {loading && (
+          <p className="text-center text-sm text-[var(--ink-muted)]">იტვირთება...</p>
+        )}
 
         {!loading && filtered.length === 0 && (
-          <p className="text-center text-sm text-slate-400">სტუმრები ვერ მოიძებნა</p>
+          <p className="text-center text-sm text-[var(--ink-muted)]">
+            სტუმრები ვერ მოიძებნა
+          </p>
         )}
 
         {filtered.map((guest) => (
@@ -137,7 +149,7 @@ export default function Dashboard() {
 
       <button
         onClick={() => setFormOpen(true)}
-        className="fixed bottom-6 left-1/2 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 rounded-xl bg-slate-900 py-3.5 text-base font-medium text-white shadow-lg active:scale-[0.98] sm:w-auto sm:px-8"
+        className="fixed bottom-6 left-1/2 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 rounded-xl bg-[var(--ink)] py-3.5 text-base font-medium text-white shadow-lg active:scale-[0.98] sm:w-auto sm:px-8"
       >
         + ახალი სტუმარი
       </button>
